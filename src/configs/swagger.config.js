@@ -4,15 +4,15 @@ const uiExpress = require('swagger-ui-express');
 
 module.exports = function swaggerConfig(app) {
     const document = jsdoc({
-        openapi: "3.0.1",
         swaggerDefinition: {
+            openapi : "3.0.0",
             info: {
                 title: "Divar-Backend",
                 description: "this is backend divar project.",
                 version: "1.0.0"
             },
         },
-        apis: ["../modules/**.swagger.js"]
+        apis: [process.cwd() + "/src/modules/**/*.swagger.js"]
     })
 
     const uiConfig = uiExpress.setup(document)
