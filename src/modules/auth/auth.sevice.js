@@ -29,9 +29,9 @@ class AuthService {
         return authMessage.SuccessOTP
     }
     async checkOTP(number, otpCode) {
+        
         const user = await this.checkUserExistenceByNum(number);
-        if(!user.otpCode && user.otpCode.expiresIn <= Date.now()) throw new createHttpError.BadRequest(authMessage.OTPExpired);
-        if(user.verifiedNum)  throw new createHttpError.BadRequest(authMessage.alreadyAuthorized)
+        if(!user.otpCode || user.otpCode.expiresIn <= Date.now()) throw new createHttpError.BadRequest(authMessage.OTPExpired);
         if(user.otpCode.code != otpCode) throw new createHttpError.BadRequest(authMessage.InvalidOTP);
         user.verifiedNum = true;
         await user.save();

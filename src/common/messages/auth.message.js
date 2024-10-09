@@ -6,5 +6,7 @@ module.exports = AuthMessages = {
     InvalidOTP : ".رمز یک بار مصرف اشتباه است",
     SuccessOTP : ".رمز یک بار مصرف شما با موفقیت تولید شد و تا 2 دقیقه دیگر فعال است",
     SuccessLogin : ".احراز هویت شما موفقیت آمیز بود",
-    alreadyAuthorized : ".شما قبلا احراز هویت شده اید"
+    alreadyAuthorized : ".شما قبلا احراز هویت شده اید",
+    FailLogin : ".لطفا اول وارد حساب کاربری خود شوید",
+    SuccessLogOut : ".شما با موفقیت از حساب کاربری خود خارج شدید"
 }

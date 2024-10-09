@@ -3,6 +3,7 @@ const { err404Handler, allErrHandler } = require('./src/common/ErrHandlers/errHa
 const swaggerConfig = require('./src/configs/swagger.config');
 const { AllRoutes } = require('./routes');
 const cookieParser = require('cookie-parser');
+const namesGlobal = require('./src/common/global/names.global');
 require("dotenv").config();
 function main() {
     const app = express();
@@ -11,7 +12,8 @@ function main() {
     require("./src/configs/mongoose.config");
     swaggerConfig(app);
     app.use(cookieParser(process.env.Secret_Key, {
-        httpOnly : true
+        httpOnly : true,
+        secure : process.env.Node_Env === namesGlobal.Node_Env.production
     }))
     app.use(AllRoutes)
     app.use(err404Handler);
