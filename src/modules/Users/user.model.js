@@ -7,7 +7,7 @@ const userModel = new Schema({
     fullName : {type : String},
     number : {type : String, required : true, unique : true},
     otpCode : {type : otpSchema, required : true},
-    verifiedNum : {type : Boolean}
+    verifiedNum : {type : Boolean} 
 
 
 }, {timestamps : true})

@@ -1,5 +1,5 @@
 const autoBind = require("auto-bind");
-
+ 
 const createHttpError = require("http-errors");
 const namesGlobal = require("../../common/global/names.global");
 const authMessage = require("../../common/messages/auth.message");
