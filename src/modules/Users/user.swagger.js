@@ -4,7 +4,7 @@
  *  name : Users
  *  description : user logout and profile is in this section
  */
-
+ 
 /**
  * @swagger
  * /user/whoami:
