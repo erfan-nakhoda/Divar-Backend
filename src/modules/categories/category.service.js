@@ -48,4 +48,4 @@ class CategorySerivce {
         return null
     }
 }
-module.exports = new CategorySerivce();
+module.exports = new CategorySerivce(); 

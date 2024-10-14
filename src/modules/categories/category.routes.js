@@ -8,4 +8,4 @@ router.get("/get", categoryController.getCategories);
 
 module.exports = {
     CategoryRoutes : router
-}
+} 
