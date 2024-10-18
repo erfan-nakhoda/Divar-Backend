@@ -15,7 +15,7 @@ function main() {
         httpOnly : true,
         secure : process.env.Node_Env === namesGlobal.Node_Env.production
     }))
-    app.use(AllRoutes)
+    app.use(AllRoutes);
     app.use(err404Handler);
     app.use(allErrHandler);
     app.listen(process.env.PORT, (err) => {

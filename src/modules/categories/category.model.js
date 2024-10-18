@@ -10,14 +10,14 @@ const categorySchema = new Schema({
     toJSON: { virtuals: true}
 })
 function autopopulate(next) {
-    this.populate("children");
+    this.populate([{path : "children"}]);
     next()
 }
 categorySchema.pre("find", autopopulate)
 categorySchema.virtual("children", {
     ref : "category",
-    localField: "parent",
-    foreignField: "_id"
+    localField: "_id",
+    foreignField: "parent"
 });
 
 module.exports = model("category", categorySchema); 

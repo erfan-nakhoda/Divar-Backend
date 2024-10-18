@@ -1,6 +1,6 @@
 const autoBind = require("auto-bind");
 const categoryModel = require("./category.model");
-const { isValidObjectId } = require("mongoose");
+const { isValidObjectId, Types } = require("mongoose");
 const createHttpError = require("http-errors");
 const categoryMessages = require("../../common/messages/category.message");
 const { default: slugify } = require("slugify");
@@ -14,7 +14,7 @@ class CategorySerivce {
     async createCategory(categoryDto) {
         if (isValidObjectId(categoryDto.parent)) {
             const existCategory = await this.checkById(categoryDto.parent);
-            categoryDto.parents = [... new Set(existCategory?.parents?.concat(categoryDto.parent))];
+            categoryDto.parents = [... new Set(existCategory?.parents?.map(id => id.toString()).concat(existCategory._id.toString()))].map(id => Types.ObjectId(id));
         }
         if (categoryDto.slug) {
             categoryDto.slug = slugify(categoryDto.slug);
@@ -28,7 +28,7 @@ class CategorySerivce {
         await this.#Db.create(categoryDto);
     }
     async getCategories() {
-        const categories = await this.#Db.find({}, {__v : 0 , updatedAt : 0 , createdAt : 0,}).populate("children", {name : 1});
+        const categories = await this.#Db.find({parent : {$exists : false}}, {__v : 0 , updatedAt : 0 , createdAt : 0, })
         return categories
     }
 
