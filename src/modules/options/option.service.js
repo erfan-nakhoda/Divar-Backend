@@ -40,6 +40,12 @@ class OptionService {
         return option;
     }
 
+    async delete(id) {
+        const option = await this.checkIfNotById(id);
+        await this.#Db.deleteOne({id : option.id});
+        return true;
+    }
+
     async checkIfNotById(id) {
         const option = await this.#Db.findById(id);
         if (!option) throw new createHttpError.NotFound(optionMessage.NotFound)
