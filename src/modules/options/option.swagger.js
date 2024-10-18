@@ -52,3 +52,30 @@
  *          200:
  *              description: Ok
  */
+
+/**
+ * @swagger
+ * /option/{id}:
+ *  get:
+ *      summary : getting option by its id
+ *      tags :  
+ *          -   Options
+ *      parameters:
+ *          -   in : path
+ *              name : id
+ *      responses :
+ *          200:
+ *              description : ok
+ * /option/by-category/{id}:
+ *  get:
+ *      summary : getting option by its category id
+ *      tags:
+ *          -   Options
+ *      parameters:
+ *          -   in : path
+ *              name : id
+ *      responses :
+ *          200:
+ *              description : ok
+ *          
+ */
