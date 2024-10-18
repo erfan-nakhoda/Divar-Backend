@@ -7,7 +7,7 @@ router.post("/create", optionController.create);
 router.get("/get", optionController.get)
 router.get("/:id",optionController.getById);
 router.get("/by-category/:id",optionController.getByCategory);
-router.delete("/delete/:id", optionController.delete);
+router.delete("/delete/:id", optionController.deleteById);
 
 module.exports = {
     OptionRoutes : router

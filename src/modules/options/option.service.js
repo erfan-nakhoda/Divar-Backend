@@ -45,9 +45,9 @@ class OptionService {
         return option;
     }
 
-    async delete(id) {
-        const option = await this.checkIfNotById(id);
-        await this.#Db.deleteOne({id : option.id});
+    async deleteById(id) {
+        await this.checkIfNotById(id);
+        await this.#Db.deleteOne({_id : id});
         return true;
     }
 

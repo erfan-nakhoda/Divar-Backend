@@ -63,11 +63,11 @@ class OptionController {
         }
     }
 
-    async delete(req,res,next) {
+    async deleteById(req,res,next) {
         try {
             const {id} = req.params;
             if(!id || !isValidObjectId(id)) throw new createHttpError.BadRequest(optionMessage.invalidOrEmpty);
-            await this.#service.delete(id);
+            await this.#service.deleteById(id);
             return res.send({
                 status : 200,
                 message : optionMessage.DeleteSuccess
