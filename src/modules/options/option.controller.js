@@ -62,6 +62,20 @@ class OptionController {
             next(err)
         }
     }
+
+    async delete(req,res,next) {
+        try {
+            const {id} = req.params;
+            if(!id || !isValidObjectId(id)) throw new createHttpError.BadRequest(optionMessage.invalidOrEmpty);
+            await this.#service.delete(id);
+            return res.send({
+                status : 200,
+                message : optionMessage.DeleteSuccess
+            })
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 module.exports = new OptionController();

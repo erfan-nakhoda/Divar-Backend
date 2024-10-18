@@ -85,5 +85,16 @@
  *      responses:
  *          200:
  *            description : ok
- *          
+ *         
+ * /option/delete/{id}:
+ *  delete:
+ *      summary : delte an option
+ *      tags:
+ *          -   Options
+ *      parameters:
+ *        - in : path
+ *          name : id
+ *      responses:
+ *          200:
+ *              description : ok
  */

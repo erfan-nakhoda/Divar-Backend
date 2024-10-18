@@ -3,7 +3,8 @@ const optionMessage = Object.freeze({
     emptyInput : ".لطفا تمام اطلاعات لازم را صحیح وارد کنید",
     NotFound : ".آپشن مورد نظریافت نشد",
     invalidOrEmpty : ".لطفا شناسه معتبر یا شناسه را درست وارد کنید",
-    Conflict : ".آپشنی با این مشخصات وجود دارد"
+    Conflict : ".آپشنی با این مشخصات وجود دارد",
+    DeleteSuccess : ".آپشن شما با موفقیت پاک شد",
 })
 
 module.exports = optionMessage;
