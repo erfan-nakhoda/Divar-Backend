@@ -12,8 +12,8 @@ class OptionController {
     }
     async create(req,res,next) {
         try {
-            const {title,key,selection,guide,category} = req.body;
-            await this.#service.create({title,key,selection,guide,category});
+            const {title,key,selection,type,guide,category} = req.body;
+            await this.#service.create({title,type,key,selection,guide,category});
             return res.status(201).send({
                 status: 201,
                 message : optionMessage.success
@@ -24,7 +24,7 @@ class OptionController {
     async get(req,res,next) {
         try {
             const result = await this.#service.get();
-            return res.status(201).send({
+            return res.status(200).send({
                 status : 200,
                 data : result
             })
@@ -50,9 +50,9 @@ class OptionController {
 
     async getByCategory(req,res,next) {
         try {
-            const {categoryId} = req.params;
-            if(!categoryId || !isValidObjectId(categoryId)) throw new createHttpError.BadRequest(optionMessage.invalidOrEmpty);
-            const result = await this.#service.getByCategory(categoryId);
+            const {id} = req.params;
+            if(!id || !isValidObjectId(id)) throw new createHttpError.BadRequest(optionMessage.invalidOrEmpty);
+            const result = await this.#service.getByCategory(id);
             return res.status(200).send({
                 status : 200,
                 data : result

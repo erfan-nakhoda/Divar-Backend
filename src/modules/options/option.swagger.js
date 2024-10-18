@@ -28,7 +28,7 @@
  *                      -   string
  *                      -   array
  *                      -   boolean
- *              enum:
+ *              selection:
  *                  type : array
  *              guide:
  *                  type : string
@@ -77,5 +77,13 @@
  *      responses :
  *          200:
  *              description : ok
+ * /option/get:
+ *  get:
+ *      summary : get all options
+ *      tags:
+ *          -   Options
+ *      responses:
+ *          200:
+ *            description : ok
  *          
  */
