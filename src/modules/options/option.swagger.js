@@ -30,6 +30,8 @@
  *                      -   boolean
  *              selection:
  *                  type : array
+ *              required:
+ *                  type : boolean
  *              guide:
  *                  type : string
  *              category:

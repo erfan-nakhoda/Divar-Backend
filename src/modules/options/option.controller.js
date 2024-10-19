@@ -12,6 +12,7 @@ class OptionController {
     }
     async create(req,res,next) {
         try {
+
             const {title,key,selection,type,guide,category} = req.body;
             await this.#service.create({title,type,key,selection,guide,category});
             return res.status(201).send({
@@ -71,6 +72,20 @@ class OptionController {
             return res.send({
                 status : 200,
                 message : optionMessage.DeleteSuccess
+            })
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async updateById(req,res,next) {
+        try {
+            const {id} = req.params
+            const data =req.body;
+            await this.#service.updateById(id,data);
+            return res.status(200).send({
+                status : 200,
+                message : optionMessage.UpdateSuccess
             })
         } catch (err) {
             next(err)

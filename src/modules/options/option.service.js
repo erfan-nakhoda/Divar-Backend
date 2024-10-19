@@ -20,8 +20,11 @@ class OptionService {
         if (!optionDto.category || !isValidObjectId(optionDto.category)) throw new createHttpError.BadRequest(optionMessage.emptyInput);
         else await this.#categorySerivce.checkById(optionDto.category);
         await this.checkExistByCategoryId(optionDto.category);
+        if (!optionDto.category || !isValidObjectId(optionDto.category)) throw new createHttpError.BadRequest(optionDto.emptyInput);
+        else !!await this.#categorySerivce.checkById(optionDto.category);
+        await this.checkExistByCategoryIdAndKey(optionDto.category, optionDto.key);
         if (!optionDto.title || !optionDto.type) throw new createHttpError.BadRequest(optionMessage.emptyInput);
-        if (!optionDto.key) slugify(optionDto.title, { trim: true, replacement: "_" });
+        if (!optionDto.key) slugify(optionDto.title, { trim: true, replacement: "_", lower: true });
         if (!optionDto.selection) delete optionDto.selection;
         else {
             optionDto.selection =  optionDto.selection.split(',');
@@ -45,22 +48,48 @@ class OptionService {
         return option;
     }
 
+
     async deleteById(id) {
         await this.checkIfNotById(id);
-        await this.#Db.deleteOne({_id : id});
+        await this.#Db.deleteOne({_id : id});}
+
+    async updateById(id, data) {
+        await this.checkIfNotById(id);
+        if (data.category && isValidObjectId(data.category)) {
+            const existCategory = await this.#categorySerivce.checkById(data.category);
+            data.category = existCategory.id;
+        } else delete data.category;
+
+        if (data.key) {
+            data.key = slugify(data.key, { trim: true, replacement: "_", lower: true });
+            if (await this.#Db.findOne({ key: data.key })) throw new createHttpError.Conflict(optionMessage.Conflict);
+        }
+        if (data.required) {
+            if (["true", true, 1].includes(data.required)) data.required = true;
+            else data.required = false
+        }
+        if (data.selection && typeof data.selection === "string") data.selection = data.selection.split(',');
+        else delete data.selection;
+
+        await this.#Db.updateOne({ _id: id }, { $set: data });
         return true;
     }
 
-    async checkIfNotById(id) {
+    async checkIfNotByIdOrKey(id, key = null) {
         const option = await this.#Db.findById(id);
-        if (!option) throw new createHttpError.NotFound(optionMessage.NotFound)
+        if (!option) throw new createHttpError.NotFound(optionMessage.NotFound);
         return option;
     }
 
-    async checkExistByCategoryId(id) {
+    async checkExistByCategoryIdAndKey(id, key = null) {
         const option = await this.#Db.findOne({ category: id });
         if (option) throw new createHttpError.Conflict(optionMessage.Conflict)
-        return true;
+        if (!option) throw new createHttpError.NotFound(optionMessage.NotFound);
+        if (key) {
+            const option = await this.#Db.findOne({ key });
+            if (option) throw new createHttpError.Conflict(optionMessage.Conflict);
+        }
+        return option;
     }
 }
 
