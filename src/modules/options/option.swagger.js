@@ -30,6 +30,8 @@
  *                      -   boolean
  *              enum:
  *                  type : array
+ *              required:
+ *                  type : boolean
  *              guide:
  *                  type : string
  *              category:
