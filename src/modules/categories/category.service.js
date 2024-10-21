@@ -4,12 +4,15 @@ const { isValidObjectId, Types } = require("mongoose");
 const createHttpError = require("http-errors");
 const categoryMessages = require("../../common/messages/category.message");
 const { default: slugify } = require("slugify");
+const OptionModel = require("../options/option.model");
 
 class CategorySerivce {
-    #Db
+    #Db;
+    #OptionDb;
     constructor() {
         autoBind(this)
         this.#Db = categoryModel;
+        this.#OptionDb = OptionModel;
     }
     async createCategory(categoryDto) {
         if (isValidObjectId(categoryDto.parent)) {
@@ -30,6 +33,14 @@ class CategorySerivce {
     async getCategories() {
         const categories = await this.#Db.find({parent : {$exists : false}}, {__v : 0 , updatedAt : 0 , createdAt : 0, })
         return categories
+    }
+
+    async deleteCategory(id) {
+        await this.checkById(id);
+        await this.#OptionDb.deleteMany({category : id}).then(async () => {
+            await this.#Db.deleteMany({_id : id});
+        })
+
     }
 
     async checkById(id) {

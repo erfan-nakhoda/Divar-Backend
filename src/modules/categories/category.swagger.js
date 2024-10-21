@@ -48,4 +48,16 @@
  *      responses:
  *          200 :
  *              description : ok
+ * /category/delete/{id}:
+ *  delete:
+ *      summary : delete a category
+ *      tags:
+ *          -   Categories
+ *      parameters:
+ *          -   in : path
+ *              name : id
+ *      responses:
+ *          200 : 
+ *              description : ok
+ *      
  */ 
